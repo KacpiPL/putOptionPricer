@@ -27,7 +27,7 @@ double runSimpleMonteCarloPut(double Expiry,
     thisSpot = movedSpot * exp(rootVariance * thisGaussian);
 
     // check if price of the asset falls below the barrier level
-    if (thisSpot < b){
+    if (thisSpot <= b){
       barrierBreached = true;
     }
 
