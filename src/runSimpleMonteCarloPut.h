@@ -7,6 +7,7 @@ double runSimpleMonteCarloPut(double Expiry,
                             double Spot,
                             double Vol,
                             double r,
+                            double b,
                             unsigned long int NumberOfPaths);
 
 #endif

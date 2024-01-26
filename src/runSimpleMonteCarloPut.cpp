@@ -8,6 +8,7 @@ double runSimpleMonteCarloPut(double Expiry,
                             double Spot,
                             double Vol,
                             double r,
+                            double b,
                             unsigned long int NumberOfPaths){
 
   double variance = Vol * Vol * Expiry;
@@ -20,13 +21,21 @@ double runSimpleMonteCarloPut(double Expiry,
 
   for (unsigned long i = 0; i < NumberOfPaths; i++) {
 
+    bool barrierBreached = false;
     double thisGaussian = getOneGaussianByBoxMueller();
 
     thisSpot = movedSpot * exp(rootVariance * thisGaussian);
 
-    double thisPayoff = Strike - thisSpot;     // payoff for put option
+    // check if price of the asset falls below the barrier level
+    if (thisSpot < b){
+      barrierBreached = true;
+    }
 
-    if (thisPayoff>0) runningSum += thisPayoff;
+    // calculate the payoff only if the price does not fall below b
+    if (!barrierBreached) {
+      double thisPayoff = Strike - thisSpot;
+      if (thisPayoff > 0) runningSum += thisPayoff;
+    }
   }
 
   double mean = runningSum / NumberOfPaths;

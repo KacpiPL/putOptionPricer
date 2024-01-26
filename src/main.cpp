@@ -11,12 +11,14 @@ double getPutPrice(
     double Spot   = 140,
     double Vol    = 0.24,
     double r      = 0.07,
+    double b      = 120,
     unsigned long NumberOfPaths = 10000){
   double result = runSimpleMonteCarloPut(Expiry,
                                        Strike,
                                        Spot,
                                        Vol,
                                        r,
+                                       b,
                                        NumberOfPaths);
 
   return result;
